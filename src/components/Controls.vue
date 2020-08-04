@@ -8,7 +8,10 @@
       <li v-show="!replayMode"><a class="button is-small mb-2" @click="setDice('D20')">D20</a></li>
       <li v-show="!replayMode"><a class="button is-small mb-2" @click="setDice('D6+D6')">D6+D6</a></li>
       <li v-show="!replayMode"><a class="button is-small mb-2" @click="setDice('D6,D6')">D6, D6</a></li>
-      <li v-show="!replayMode"><a class="button is-small" :class="customButtonActive" @click="open">{{ showCustom ? 'x' : '...' }}</a></li>
+      <li v-show="!replayMode">
+        <a class="button is-small" :class="customButtonActive" @click="open">{{ showCustom ? 'x' : '...' }}</a>
+        <a class="button is-small is-info ml-2" href="https://github.com/gruhh/dice-gamedesign-app#the-expressions" target="_blank" v-show="showCustom">HELP</a>
+      </li>
       <li v-show="replayMode"><a class="button is-small" @click="$emit('quit', 'replay')">Quit Replay Mode</a></li>
     </ul>
     <div v-show="showCustom" class="field is-grouped mt-2">
@@ -18,9 +21,6 @@
         </p>
         <p class="control">
           <button class="button" @click="setExpression">Set and Roll</button>
-        </p>
-        <p class="control">
-          <button class="button" @click="setExpression">Help</button>
         </p>
       </div>
     </div>

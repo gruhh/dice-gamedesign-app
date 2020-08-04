@@ -17,6 +17,8 @@
         <div class="navbar-menu" :class="navbarIsActive">
           <div class="navbar-start">
             <a class="navbar-item" href="https://github.com/gruhh/dice-gamedesign-app" target="_blank">Open Source</a>
+            <a class="navbar-item" href="https://github.com/gruhh/dice-gamedesign-app#for-game-designers" target="_blank">For Game Designers</a>
+            <a class="navbar-item" href="https://gruhh.com" target="_blank">Made By</a>
           </div>
           <div class="navbar-end">
             <div class="navbar-item">
@@ -62,3 +64,13 @@
     }
   }
 </script>
+
+<style scoped>
+  @media only screen and (max-width: 1023px) {
+    .navbar-item .buttons .button {
+      width: 100%;
+      margin-right: 0 !important;
+      padding: 1.25rem 0;
+    }
+  }
+</style>
