@@ -200,7 +200,7 @@
 
         if (type === 'history') {
           // btoa is used to hide a little the history list
-          link += 'replay/' + btoa(JSON.stringify(this.history));
+          link += 'replay/' + btoa(encodeURIComponent(JSON.stringify(this.history)));
           this.loadModal = {
             title: 'Replay Link',
             content: 'This link will load the <b>exactly same history in the same order</b><br>' +
@@ -215,7 +215,7 @@
       loadHistory(param) {
         this.diceExpression = 'Replay Mode';
         try {
-          return JSON.parse(atob(param));
+          return JSON.parse(decodeURIComponent(atob(param)));
         } catch (e) {
           throw Error('ERROR: the history you tried to load was invalid.');
         }
