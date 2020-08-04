@@ -9,10 +9,10 @@
         </div>
         <div class="message-body">
           <p v-html="loadModal.content"></p>
-          <div class="field">
+          <div class="field" v-show="loadModal.link">
             <label class="label is-small mt-3">Link to share</label>
             <div class="control">
-              <input class="input has-text-centered" type="text" v-bind:value="loadModal.link">
+              <input class="input has-text-centered" type="text" v-bind:value="loadModal.link" ref="linkInput" @click="selectLink">
             </div>
           </div>
         </div>
@@ -33,6 +33,11 @@
           return 'is-active';
         }
         return false;
+      }
+    },
+    methods: {
+      selectLink() {
+        this.$refs.linkInput.select();
       }
     }
   }

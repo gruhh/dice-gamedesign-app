@@ -90,10 +90,6 @@ By clicking in the "Replay Link" you will generate a link to replay the **exactl
 
 So the designer or the players can share an awesome experience with friends to see their results with that history.
 
-### Custom Experience Link
-
-Soon.
-
 ---
 
 #### About
