@@ -37,3 +37,11 @@
     }
   }
 </script>
+
+<style scoped>
+  @media only screen and (max-width: 1023px) {
+    .is-active .modal-content {
+      max-width: 90%;
+    }
+  }
+</style>

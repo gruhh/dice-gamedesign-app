@@ -96,15 +96,6 @@ Soon.
 
 ---
 
-#### Next implementations
-
-- [x] Incrementation die
-- [x] Create links buttons
-- [x] Replay mode
-- [ ] Unique rolls option
-- [ ] Design an experience play
-- [ ] New random algorithm
-
 #### About
 
 This was made because I needed this tool to design some games.

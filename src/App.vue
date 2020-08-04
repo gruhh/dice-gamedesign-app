@@ -145,7 +145,7 @@
       },
       generate(size) {
         if (size < -1 || size > 1) {
-          // TODO: Change the random algorithm
+        // TODO: Update the random algorithm
           return Math.floor((Math.random() * size) + 1);
         }
 
@@ -226,6 +226,18 @@
           this.diceExpression = 'D6';
         }
         this.reset();
+      },
+      shuffle(arr) {
+        let holder = arr;
+        let newArray = [];
+
+        do {
+          let random = Math.floor(Math.random() * holder.length);
+          newArray.push(holder[random]);
+          holder = holder.filter((v, k) => k !== random);
+        } while (holder.length > 0);
+
+        return newArray;
       }
     }
   }
