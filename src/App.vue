@@ -2,7 +2,7 @@
   <div id="app">
     <Menu @reset="reset" @modal="generateModal" :history="history.length > 0" :replay-mode="hasHistoryLoaded"/>
     <div class="container workspace" @click.self="clickTheTable">
-      <Board class="board" :results="results"/>
+      <Board class="board" :results="results" :is-rolling="isRolling"/>
       <Controls class="controls-list pl-3 pb-3" @setDice="setAndRoll" @quit="quitMode" :expression="diceExpression" :replay-mode="hasHistoryLoaded"/>
       <History class="has-text-right history-list pr-3 pb-3" :list="history" :expression="diceExpression"/>
       <StartAlert/>
@@ -38,7 +38,8 @@
         history:[],
         loadedHistory:'',
         historyIndex:0,
-        loadModal:''
+        loadModal:'',
+        isRolling:false
       }
     },
     created() {
@@ -52,11 +53,20 @@
     },
     methods: {
       clickTheTable() {
-        if (this.hasHistoryLoaded) {
-          this.replay();
-          return;
+        if(!this.isRolling) {
+          this.isRolling = true;
+
+          setTimeout(() => {
+            this.isRolling = false;
+
+            if (this.hasHistoryLoaded) {
+              this.replay();
+              return;
+            }
+            this.roll();
+
+          }, 420);
         }
-        this.roll();
       },
       setAndRoll(expression) {
         this.diceExpression = expression.toString().replace(/,+$/, '');
