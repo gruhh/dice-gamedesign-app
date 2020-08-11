@@ -30,9 +30,11 @@ You can create custom expressions clicking the "..." button.
     - x is a _string_, so you can use words, chars, static numbers, emojis, html symbols.
 - **To create an incrementation roll:** `I(n;x)`
    - This will roll a simple incrementation by n, starting at x.
+- **To roll a number inside a range:** `R(min;max)`
+    - This will roll a random number between min and max (included).
 
 _Cases:_
-- If you need to roll 0s, create a custom die, like `D(0;1;2;3;4;5;6)`.
+- If you need to roll 0s, you can create a custom die, like `D(0;1;2;3;4;5;6)`; or roll a range, like `R(0;6)`.
 
 _Examples:_
 
@@ -53,12 +55,15 @@ D20 | 1 / 8 / 1 / 20 / 18
 D100 | 22 / 85 / 100 / 99 / 1
 D6, D6+D6 | 2, 7 / 6, 5 / 3, 7 / 5, 11 / 1, 2
 D-6+D6 | -1 / 4 / -2 / 0 / 5
+R(3;6) | 5 / 5 / 6 / 4 / 3
+R(-6;6) | -5 / 0 / 6 / 1 / -2
 D6, D12, D20 | 3, 11, 15 / 4, 1, 1 / 5, 2, 18 / 6, 1, 20 / 1, 1, 1
 I(1;0) | 1 / 2 / 3 / 4 / 5 (...)
 I(-1;6) | 5 / 4 / 3 / 2 / 1 (...)
 I(2;0) | 2 / 4 / 6 / 8 / 10 (...)
 I(2;1) | 3 / 5 / 7 / 9 / 11 (...)
 I(1;0), D6 | 1, 3 / 2, 3 / 3, 1 / 4, 6 / 5, 1
+R(3;6), D6 | 5, 1 / 5, 2 / 6, 6 / 4, 3 / 3, 4
 
 The (...) symbol indicates a logical continuation.
 

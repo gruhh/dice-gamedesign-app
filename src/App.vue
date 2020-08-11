@@ -103,6 +103,7 @@
         // Resolve the dice expression
         this.dice.forEach(dice => {
           if (dice.toString().includes('+')) {
+
             let sumDice = 0;
 
             dice.toString()
@@ -112,21 +113,27 @@
               });
 
             this.addToResults(sumDice);
+
           } else if (dice.toString().startsWith('D(')) {
 
             dice = this.cleanExpression(dice, 'D');
-
-            let customDice;
-            let diceSize;
-
-            customDice = dice.toString().split(';');
-            diceSize = customDice.length;
+            let customDice = dice.toString().split(';');
+            let diceSize = customDice.length;
 
             this.addToResults(customDice[this.generate(diceSize)-1]);
 
           } else if (dice.toString().startsWith('D')) {
+
             this.addToResults(this.generate(this.diceToSize(dice)));
+
+          } else if (dice.toString().startsWith('R(')) {
+
+            let values = this.cleanExpression(dice, 'R').split(';');
+
+            this.addToResults(this.generate(values[1], values[0]));
+
           } else if (dice.toString().startsWith('I(')) {
+
             let values = this.cleanExpression(dice, 'I').split(';');
 
             if (this.diceVariables.some(variable => variable.name === `I${values[0]}${values[1]}`)) {
@@ -147,19 +154,24 @@
 
               this.addToResults(this.sumValues(values[1], values[0]));
             }
+
           }
         });
 
         // Add the result to the history
         this.addToHistory(this.results.toString());
       },
-      generate(size) {
-        if (size < -1 || size > 1) {
+      generate(max, min = 1) {
+
+        min = parseInt(min);
+        max = parseInt(max);
+
+        if (max < -1 || max > 1) {
         // TODO: Update the random algorithm
-          return Math.floor((Math.random() * size) + 1);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        return size;
+        return max;
       },
       diceToSize(dice) {
         // TODO: Check if the size is a number
