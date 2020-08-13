@@ -23,6 +23,7 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
+                <a class="button is-dark is-small" @click="$emit('theme')">{{ (theme) ? "🌞" : "🌜" }}</a>
                 <a class="button is-dark is-small" @click="(history) ? $emit('modal', 'history') : null" :disabled="!history">Replay Link</a>
                 <a class="button is-dark is-small" @click="(!replayMode) ? $emit('modal', 'dice') : null" :disabled="replayMode">{{ (replayMode) ? "Replay Mode" : "Dice Link" }}</a>
                 <a class="button is-dark is-small" @click="$emit('reset');openMenu()">Reset</a>
@@ -39,7 +40,8 @@
   export default {
     props: {
       history: Boolean,
-      replayMode: Boolean
+      replayMode: Boolean,
+      theme: Boolean
     },
     data() {
       return {

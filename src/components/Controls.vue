@@ -10,7 +10,7 @@
       <li v-show="!replayMode"><a class="button is-small mb-2" @click="setDice('D6,D6')">D6, D6</a></li>
       <li v-show="!replayMode">
         <a class="button is-small" :class="customButtonActive" @click="open">{{ showCustom ? 'x' : '...' }}</a>
-        <a class="button is-small is-info ml-2" href="https://github.com/gruhh/dice-gamedesign-app#the-expressions" target="_blank" v-show="showCustom">HELP</a>
+        <a class="button is-small ml-2" href="https://github.com/gruhh/dice-gamedesign-app#the-expressions" target="_blank" v-show="showCustom" :class="(themed) ? 'is-black' : 'is-info'">HELP</a>
       </li>
       <li v-show="replayMode"><a class="button is-small" @click="$emit('quit', 'replay')">Quit Replay Mode</a></li>
     </ul>
@@ -32,7 +32,8 @@
     name: "Controls",
     props: {
       expression: String,
-      replayMode: Boolean
+      replayMode: Boolean,
+      themed: Boolean
     },
     data() {
       return {
@@ -60,8 +61,12 @@
     },
     computed: {
       customButtonActive() {
-        if (this.showCustom) {
-          return 'is-light is-selected';
+        if (this.showCustom && !this.themed) {
+          return 'is-light has-background-grey-lighter is-selected';
+        } else if (this.showCustom && this.themed) {
+          return 'is-dark has-background-black-bis is-selected';
+        } else if (!this.showCustom && this.themed) {
+          return 'is-dark has-background-black-bis is-selected';
         }
         return false;
       }

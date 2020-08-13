@@ -2,7 +2,7 @@
   <div class="roller">
     <span class="die" v-show="!isRolling" v-for="result in results" :key="result._id">{{ result }}</span>
     <span class="die" v-show="!isRolling" v-if="results.length === 0">click</span>
-    <span class="die" v-show="isRolling"><button class="button mt-4 is-large is-white is-loading">Loading</button></span>
+    <span class="die" v-show="isRolling"><button class="button mt-4 is-large is-loading" :class="themed ? 'is-dark' : 'is-white' ">Loading</button></span>
   </div>
 </template>
 
@@ -10,7 +10,8 @@
   export default {
     props: {
       results: Array,
-      isRolling: Boolean
+      isRolling: Boolean,
+      themed: Boolean
     }
   }
 </script>

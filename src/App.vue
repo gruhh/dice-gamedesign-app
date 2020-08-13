@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Menu @reset="reset" @modal="generateModal" :history="history.length > 0" :replay-mode="hasHistoryLoaded"/>
+    <Menu @reset="reset" @modal="generateModal" @theme="changeTheme" :theme="isThemed" :history="history.length > 0" :replay-mode="hasHistoryLoaded"/>
     <div class="container workspace" @click.self="clickTheTable">
-      <Board class="board" :results="results" :is-rolling="isRolling"/>
-      <Controls class="controls-list pl-3 pb-3" @setDice="setAndRoll" @quit="quitMode" :expression="diceExpression" :replay-mode="hasHistoryLoaded"/>
-      <History class="has-text-right history-list pr-3 pb-3" :list="history" :expression="diceExpression"/>
-      <StartAlert/>
+      <Board :themed="isThemed" class="board" :results="results" :is-rolling="isRolling"/>
+      <Controls :themed="isThemed" id="controls" class="controls-list pl-3 pb-3" @setDice="setAndRoll" @quit="quitMode" :expression="diceExpression" :replay-mode="hasHistoryLoaded"/>
+      <History id="history" class="has-text-right history-list pr-3 pb-3" :list="history" :expression="diceExpression"/>
+      <StartAlert :themed="isThemed"/>
     </div>
     <ModalUI :loadModal="loadModal" @unload="unloadModal" />
   </div>
@@ -39,12 +39,17 @@
         loadedHistory:'',
         historyIndex:0,
         loadModal:'',
-        isRolling:false
+        isRolling:false,
+        isThemed:false,
+        elControlButtons:[]
       }
     },
     created() {
       this.diceExpression = (this.$route.params.expression) ? this.$route.params.expression : 'D6';
       this.loadedHistory = (this.$route.params.history) ? this.loadHistory(this.$route.params.history) : '';
+    },
+    mounted() {
+      this.elControlButtons = document.getElementById('controls').getElementsByClassName('button');
     },
     computed: {
       hasHistoryLoaded() {
@@ -249,6 +254,21 @@
         }
         this.reset();
       },
+      changeTheme() {
+        this.isThemed = !this.isThemed;
+
+        this.isThemed ? document.body.classList.add('has-background-black-ter') : document.body.classList.remove('has-background-black-ter');
+
+        this.toggleClassList(this.isThemed, this.elControlButtons, ['is-dark']);
+        this.toggleClassList(!this.isThemed, document.getElementById('history').getElementsByClassName('tag'), ['is-light']);
+        this.toggleClassList(this.isThemed, document.getElementById('history').getElementsByClassName('tag'), ['is-dark']);
+        this.toggleClassList(this.isThemed, document.getElementById('controls').getElementsByClassName('input'), ['has-text-light', 'has-background-dark', 'is-dark']);
+        this.toggleClassList(this.isThemed, document.getElementsByClassName('board'), ['has-text-light']);
+
+      },
+      toggleClassList(action, arr, classes) {
+        (action) ? arr.forEach(x => x.classList.add(...classes)) : arr.forEach(x => x.classList.remove(...classes));
+      },
       shuffle(arr) {
         let holder = arr;
         let newArray = [];
@@ -266,6 +286,9 @@
 </script>
 
 <style>
+  body {
+    height: 100vh;
+  }
   *:not(input) {
     user-select: none;
     -moz-user-select: none;
@@ -277,17 +300,17 @@
     overflow: hidden;
   }
   .workspace .board {
-    z-index: -10;
+    pointer-events: none;
   }
-  .controls-list {
+  #controls {
     position: absolute;
     bottom: 0;
     left: 0;
   }
-  .history-list {
+  #history {
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: -100;
+    pointer-events: none;
   }
 </style>
