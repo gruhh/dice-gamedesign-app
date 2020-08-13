@@ -17,7 +17,7 @@
   import Controls from "@/components/Controls";
   import History from "@/components/History";
   import StartAlert from "@/components/StartAlert";
-  import ModalUI from "@/ModalUI";
+  import ModalUI from "@/components/ModalUI";
 
   export default {
     name: 'App',
